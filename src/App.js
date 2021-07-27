@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+
+import "./App.css";
+import GameWindow from "./components/GameDisplay/GameWindow";
+import Header from "./components/Header/Header";
+import SettingsInput from "./components/Settings/SettingsInput";
+import { GameContextProvider } from "./store/game-context";
 
 function App() {
+  const [inputIsVisible, setInputIsVisible] = useState(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <GameContextProvider>
+        {inputIsVisible && <SettingsInput />}
+        <div className="game__wrapper">
+          <GameWindow />
+        </div>
+      </GameContextProvider>
     </div>
   );
 }
