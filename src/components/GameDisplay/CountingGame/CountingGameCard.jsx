@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useContext } from "react";
-import { GameContext } from "../../store/game-context";
+import { GameContext } from "../../../store/game-context";
 import classes from "./GameCard.module.css";
 
 const GameCard = () => {
@@ -15,7 +15,6 @@ const GameCard = () => {
   }, []);
 
   const gameSetup = async () => {
-    console.log("setting up");
     const pokeData = await fetchPokemon(pokeSet);
     const num = getRand(game.min, game.max);
     const pokeArr = [];
@@ -52,6 +51,7 @@ const GameCard = () => {
   return (
     <>
       <h2>{pokemon.pokeData.name}</h2>
+      <h3>{pokemon.pokeArr.length}</h3>
       <div className={classes.pokemon}>{pokemon.pokeArr}</div>
       {game.status === 0 ? (
         <button onClick={handleStartGame} className={classes.start__button}>
