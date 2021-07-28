@@ -11,6 +11,16 @@
   min-width: 0;
   max-height: 100px;
   width: auto;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.showSprite {
+  min-width: 0;
+  max-height: 100px;
+  width: auto;
+
+  opacity: 1;
 }
 
 h2 {

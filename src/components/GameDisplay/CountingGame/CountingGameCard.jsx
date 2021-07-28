@@ -1,67 +1,58 @@
 import { useState, useEffect, useCallback, useContext } from "react";
+import getRandom from "../../../helpers/get-random";
 import { GameContext } from "../../../store/game-context";
 import classes from "./GameCard.module.css";
+import NumberCard from "./NumberCard";
 
 const GameCard = () => {
-  const [pokemon, setPokemon] = useState({ pokeData: {}, pokeArr: [] });
   const [game, setGame] = useContext(GameContext);
 
-  const pokeSet = 150;
+  const [pokemon, setPokemon] = useState({});
+  const [number, setNumber] = useState(1);
 
-  const getRand = useCallback((min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }, []);
+  const gameStart = useCallback(async () => {
+    const pokemon = await fetchPokemon();
+    const num = getRandom(game.min, game.max);
 
-  const gameSetup = async () => {
-    const pokeData = await fetchPokemon(pokeSet);
-    const num = getRand(game.min, game.max);
-    const pokeArr = [];
-
-    for (let i = 0; i < num; i++) {
-      pokeArr.push(<img src={pokeData.sprite} alt="" />);
-    }
-
-    setPokemon({ ...pokemon, pokeData: pokeData, pokeArr: pokeArr });
-  };
+    setPokemon(pokemon);
+    setNumber(num);
+    console.log(game, num);
+  });
 
   //get a random pokemon
-  const fetchPokemon = async (pokeSet) => {
-    const pokemon = getRand(1, pokeSet);
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${pokemon}`
-    );
+  const fetchPokemon = useCallback(async () => {
+    const num = getRandom(1, game.pokeSet);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`);
     const data = await response.json();
-    const pokeData = {
+    const pokemon = {
       name: data.name,
       sprite: data.sprites.other.dream_world.front_default,
     };
-    return pokeData;
+    return pokemon;
+  }, [game]);
+
+  const handleNext = () => {
+    console.log("next");
+    gameStart();
   };
 
-  const handleStartGame = () => {
-    if (game.status === 0) {
-      setGame({ ...game, status: 1 });
-    }
-
-    gameSetup();
+  const handleNextKeypress = () => {
+    handleNext();
   };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleNextKeypress);
+    gameStart();
+  }, []);
 
   return (
     <>
-      <h2>{pokemon.pokeData.name}</h2>
-      <h3>{pokemon.pokeArr.length}</h3>
-      <div className={classes.pokemon}>{pokemon.pokeArr}</div>
-      {game.status === 0 ? (
-        <button onClick={handleStartGame} className={classes.start__button}>
-          Start
-        </button>
-      ) : (
-        <button onClick={handleStartGame} className={classes.next__button}>
-          Next
-        </button>
-      )}
+      <NumberCard pokemon={pokemon} num={number} />
+      <div className={classes.pokemon}></div>
+
+      <button onClick={handleNext} className={classes.next__button}>
+        Next
+      </button>
     </>
   );
 };

@@ -1,12 +1,44 @@
-.user__input {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 1em;
-  border-bottom: 2px solid #222224;
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.4;
 }
 
-/* .input__item {
-} */
+.wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 800px;
+  height: 600px;
+  background-color: white;
+  z-index: 6;
+  opacity: 1;
+}
+
+.modal form {
+  height: 100%;
+}
+
+.user__input {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.error {
+  color: red;
+}
 
 .input__item label {
   margin-right: 1em;

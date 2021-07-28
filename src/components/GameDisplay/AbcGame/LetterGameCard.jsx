@@ -1,10 +1,10 @@
-import { classExpression } from "@babel/types";
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { GameContext } from "../../../store/game-context";
 
 import classes from "./LetterGameCard.module.css";
 
 const LetterGameCard = () => {
+  const [game, setGame] = useContext(GameContext);
   const [letterGameType, setLetterGameType] = useState("");
   const [pokemon, setPokemon] = useState({
     name: "",
@@ -20,8 +20,8 @@ const LetterGameCard = () => {
   }, []);
 
   //Get a random pokemon, display a picture of that pokemon and it's first letter
-  const fetchPokemon = async (pokeSet) => {
-    const num = getRand(1, pokeSet);
+  const fetchPokemon = async () => {
+    const num = getRand(1, game.pokeSet);
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`);
     const data = await response.json();
     const pokemon = {
@@ -42,6 +42,16 @@ const LetterGameCard = () => {
   const handleNext = () => {
     fetchPokemon(pokeSet);
   };
+
+  const handleNextKeypress = (event) => {
+    if (event.code === "Space") {
+      handleNext();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleNextKeypress);
+  }, []);
 
   const gameTypeButtons = (
     <>

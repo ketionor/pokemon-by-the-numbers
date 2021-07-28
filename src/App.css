@@ -16,3 +16,11 @@
   align-items: center;
   height: 100%;
 }
+
+.showSprite {
+  min-width: 0;
+  max-height: 100px;
+  width: auto;
+
+  opacity: 1;
+}

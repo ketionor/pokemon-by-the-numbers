@@ -6,7 +6,7 @@ import LetterGameCard from "./AbcGame/LetterGameCard";
 import classes from "./GameWindow.module.css";
 
 const GameWindow = () => {
-  const [game, setGame] = useContext(GameContext);
+  // const [game, setGame] = useContext(GameContext);
 
   return (
     <div className={classes.game__window}>

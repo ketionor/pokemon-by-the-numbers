@@ -5,6 +5,7 @@ export const GameContext = createContext({ min: 1, max: 10 });
 export const GameContextProvider = ({ children }) => {
   const [game, setGame] = useState({
     chosenGame: "COUNTING",
+    pokeSet: 300,
     min: 1,
     max: 10,
     status: 0,
