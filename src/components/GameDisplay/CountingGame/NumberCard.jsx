@@ -3,6 +3,7 @@ import classes from "./NumberCard.module.css";
 
 const NumberCard = ({ pokemon, num }) => {
   const pokeArr = [];
+  const numStyle = `_${num}`;
 
   const renderPokemon = (i) => {
     let timeToRender = 250 * i;
@@ -22,12 +23,13 @@ const NumberCard = ({ pokemon, num }) => {
 
   for (let i = 0; i < num; i++) {
     // renderPokemon(i);
-
+    let imgStyle = `img__${i + 1}`;
     pokeArr.push(
       <img
-        id={num}
+        className={`${classes[imgStyle]}`}
         src={pokemon.sprite}
         alt={pokemon.name}
+        key={i}
         // className={classes.showSprite}
       />
     );
@@ -37,7 +39,7 @@ const NumberCard = ({ pokemon, num }) => {
     <div className={classes.wrapper}>
       <h2>{pokemon.name}</h2>
       <div className={classes.number}>{num}</div>
-      <div className={classes.images}>{pokeArr}</div>
+      <div className={`${classes.images} ${classes[numStyle]}`}>{pokeArr}</div>
     </div>
   );
 };
