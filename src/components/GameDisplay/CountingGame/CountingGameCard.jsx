@@ -9,19 +9,21 @@ const GameCard = () => {
 
   const [pokemon, setPokemon] = useState({});
   const [number, setNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const gameStart = useCallback(async () => {
+    setIsLoading(true);
     const pokemon = await fetchPokemon();
-    const num = getRandom(game.min, game.max);
+    const num = getRandom(game.countingGame.min, game.countingGame.max);
 
     setPokemon(pokemon);
     setNumber(num);
-    console.log(game, num);
+    setIsLoading(false);
   });
 
   //get a random pokemon
   const fetchPokemon = useCallback(async () => {
-    const num = getRandom(1, game.pokeSet);
+    const num = getRandom(1, game.global.pokeSet);
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`);
     const data = await response.json();
     const pokemon = {
@@ -32,7 +34,6 @@ const GameCard = () => {
   }, [game]);
 
   const handleNext = () => {
-    console.log("next");
     gameStart();
   };
 
@@ -47,7 +48,7 @@ const GameCard = () => {
 
   return (
     <>
-      <NumberCard pokemon={pokemon} num={number} />
+      <NumberCard pokemon={pokemon} num={number} isLoading={isLoading} />
       <div className={classes.pokemon}></div>
 
       <button onClick={handleNext} className={classes.next__button}>

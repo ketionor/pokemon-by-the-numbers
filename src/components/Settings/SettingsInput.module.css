@@ -5,11 +5,13 @@
   width: 100vw;
   height: 100vh;
   background-color: black;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .wrapper {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 5;
@@ -22,8 +24,10 @@
   width: 800px;
   height: 600px;
   background-color: white;
-  z-index: 6;
+  z-index: 10;
   opacity: 1;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .modal form {
