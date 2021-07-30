@@ -1,8 +1,10 @@
 import React from "react";
+import classes from "./GlobalSettings.module.css";
 
 const GlobalSettings = ({ tempGameState, setTempGameState }) => {
   const handleChangeGlobal = (e) => {
     setTempGameState({ ...tempGameState, pokeSet: e.target.value });
+    console.log(tempGameState);
   };
 
   return (

@@ -15,10 +15,10 @@ const GameCard = () => {
     setIsLoading(true);
     const pokemon = await fetchPokemon();
     const num = getRandom(game.countingGame.min, game.countingGame.max);
-
     setPokemon(pokemon);
     setNumber(num);
     setIsLoading(false);
+    // setIsLoading(false);
   });
 
   //get a random pokemon
@@ -44,6 +44,10 @@ const GameCard = () => {
   useEffect(() => {
     window.addEventListener("keydown", handleNextKeypress);
     gameStart();
+
+    return () => {
+      window.removeEventListener("keydown", handleNext);
+    };
   }, []);
 
   return (

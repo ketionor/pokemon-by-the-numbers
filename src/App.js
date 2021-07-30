@@ -13,8 +13,8 @@ function App() {
   return (
     <div className="App">
       <ModalContextProvider>
-        <Header />
         <GameContextProvider>
+          <Header />
           {inputIsVisible && <SettingsInput />}
           <div className="game__wrapper">
             <GameWindow />

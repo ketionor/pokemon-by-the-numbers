@@ -28,22 +28,19 @@
   opacity: 1;
   border-radius: 10px;
   padding: 20px;
+
+  display: grid;
+  grid-template-rows: 50px auto;
 }
 
-.modal form {
-  height: 100%;
+.modal h2 {
+  grid-row: 1 / span 1;
+  place-self: center start;
+  margin-left: 10px;
 }
 
-.user__input {
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-}
-
-.error {
-  color: red;
-}
-
-.input__item label {
-  margin-right: 1em;
+.x {
+  grid-row: 1 / span 1;
+  place-self: center end;
+  margin-right: 10px;
 }
